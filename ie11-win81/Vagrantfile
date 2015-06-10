@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+ 
+# Vagrant file for Modern IE (https://www.modern.ie/en-us) boxes
+# This file is for Windown 7 running IE9, but there are other possibilities.
+# NB: Vagrant wants to ssh into the VM, but these VMs don't have ssh.  So,
+# you'll get a timeout error message, which is safe to ignore.
+ 
+# To use a different box, replace the config.vm.box_url with the URL and
+# update the config.vm.box to some name you want to refer to it as.
+#
+# XP with IE6: http://aka.ms/vagrant-xp-ie6
+# XP with IE8: http://aka.ms/vagrant-xp-ie8
+# Vista with IE7: http://aka.ms/vagrant-vista-ie7
+# Windows 7 with IE8: http://aka.ms/vagrant-win7-ie8
+# Windows 7 with IE9: http://aka.ms/vagrant-win7-ie9
+# Windows 7 with IE10: http://aka.ms/vagrant-win7-ie10
+# Windows 7 with IE11: http://aka.ms/vagrant-win7-ie11
+# Windows 8 with IE10: http://aka.ms/vagrant-win8-ie10
+# Windows 8.1 with IE11: http://aka.ms/vagrant-win81-ie11
+# I got this list of boxes from
+# http://www.bram.us/2014/09/24/modern-ie-vagrant-boxes/
+ 
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    # Every Vagrant virtual environment requires a box to build off of.
+    config.vm.box = "ie11-win81"
+
+    # The url from where the 'config.vm.box' box will be fetched if it
+    # doesn't already exist on the user's system.
+    # Note: that server is really slow - it takes about an hour to download a
+    # 3GB box.  You might want to manually download the box file and add it to
+    # Vagrant from the command line: 
+    #    vagrant box add --name Win7-ie9 /path/to/downloaded/box
+    config.vm.box_url = "http://aka.ms/vagrant-win81-ie11"
+
+    # Vagrant wants to ssh into the VM, but these VMs don't have ssh
+    # installed.  Just let it timeout quickly.
+    config.vm.boot_timeout = 60
+
+    # run with a UI window - not headless.
+    config.vm.provider "virtualbox" do |vb|
+        vb.gui = true
+    end
+end
+
